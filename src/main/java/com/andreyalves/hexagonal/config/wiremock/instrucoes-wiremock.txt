@@ -1,0 +1,7 @@
+*************** DOWNLOAD DO WIREMOK
+
+https://wiremock.org/docs/download-and-installation/
+
+ABRIR COM TERMINAL E RODAR O COMANDO:
+
+ java -jar .\wiremock-jre8-standalone-2.35.0.jar --port 8082
