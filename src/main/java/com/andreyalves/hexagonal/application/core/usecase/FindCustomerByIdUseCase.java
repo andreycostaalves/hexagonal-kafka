@@ -13,7 +13,7 @@ public class FindCustomerByIdUseCase {
 
     public Customer find(String id){
         return findCustomerByIdOutputPort.find(id).orElseThrow(()-> new RuntimeException("Customer not Found"));
-        
+
 
     }
 }
