@@ -1,10 +1,11 @@
 package com.andreyalves.hexagonal.application.core.usecase;
 
 import com.andreyalves.hexagonal.application.core.domain.Customer;
+import com.andreyalves.hexagonal.application.ports.in.InsertCustomerInputPort;
 import com.andreyalves.hexagonal.application.ports.out.FindAddressByZipCodeOutPutPort;
 import com.andreyalves.hexagonal.application.ports.out.InsertCustomerOutputPort;
 
-public class InsertCustomerUseCase {
+public class InsertCustomerUseCase implements InsertCustomerInputPort {
 
     //portas de saida.
     private final FindAddressByZipCodeOutPutPort findAddressByZipCodeOutPutPort;
@@ -18,6 +19,7 @@ public class InsertCustomerUseCase {
     }
 
     //metodo insert
+    @Override
     public void insert(Customer custumer, String zipCode){
         var address = findAddressByZipCodeOutPutPort.find(zipCode);
         custumer.setAddress(address);
