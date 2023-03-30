@@ -3,8 +3,10 @@ package com.andreyalves.hexagonal.adapters.in.controller;
 import com.andreyalves.hexagonal.adapters.in.controller.mapper.CustomerMapper;
 import com.andreyalves.hexagonal.adapters.in.controller.request.CustomerRequest;
 import com.andreyalves.hexagonal.adapters.in.controller.response.CustomerResponse;
+import com.andreyalves.hexagonal.application.core.domain.Customer;
 import com.andreyalves.hexagonal.application.ports.in.FindCustomerByIdInputPort;
 import com.andreyalves.hexagonal.application.ports.in.InsertCustomerInputPort;
+import com.andreyalves.hexagonal.application.ports.in.UpdateCustomerInputPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +25,8 @@ public class CustomerController {
 
     @Autowired
     private CustomerMapper customerMapper;
+    @Autowired
+    private UpdateCustomerInputPort updateCustomerInputPort;
 
     //inserção de Cliente
     @PostMapping
@@ -37,6 +41,15 @@ public class CustomerController {
         var customer = findCustomerByIdInputPort.find(id);
         var customerResponse = customerMapper.toCustomerResponse(customer);
         return ResponseEntity.ok().body(customerResponse);
+
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> update (@PathVariable final String id, @Valid @RequestBody CustomerRequest customerRequest ){
+        Customer customer = customerMapper.toCustomer(customerRequest);
+        customer.setId(id);
+        updateCustomerInputPort.update(customer, customerRequest.getZipCode());
+        return ResponseEntity.noContent().build();
 
     }
 
