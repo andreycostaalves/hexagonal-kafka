@@ -42,7 +42,7 @@ Todos cadastrados no Eureka server, administrando as requisições via api gatew
 * Spring Cloud Feign
 * KAFKA
 * Docker
-* H2 DATABASE
+* MongoDB
 
 
 
